@@ -26,9 +26,9 @@ function Index() {
   return (
     <div className="min-h-screen overflow-hidden bg-background text-foreground">
       <header className="border-b border-border">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
-          <Link to="/" className="flex items-center gap-3 font-semibold">
-            <span className="grid size-9 place-items-center rounded-md bg-foreground text-background"><AudioLines className="size-5" /></span>
+        <div className="mx-auto grid h-20 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 sm:flex sm:justify-between sm:px-8">
+          <Link to="/" className="flex min-w-0 items-center gap-3 font-semibold">
+            <span className="grid size-9 shrink-0 place-items-center rounded-md bg-foreground text-background"><AudioLines className="size-5" /></span>
             <span className="hidden sm:inline">Video Speed Reader</span>
           </Link>
           <Button asChild className="h-11 px-5 shadow-none"><Link to="/auth">Email sign in / 登入 <ArrowRight /></Link></Button>
