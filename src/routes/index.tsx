@@ -31,27 +31,27 @@ function Index() {
             <span className="grid size-9 place-items-center rounded-md bg-foreground text-background"><AudioLines className="size-5" /></span>
             <span className="hidden sm:inline">Video Speed Reader</span>
           </Link>
-          <Button asChild className="h-11 px-5 shadow-none"><Link to="/auth">Sign in / 登入 <ArrowRight /></Link></Button>
+          <Button asChild className="h-11 px-5 shadow-none"><Link to="/auth">Email sign in / 登入 <ArrowRight /></Link></Button>
         </div>
       </header>
 
       <main>
         <section className="paper-grid relative border-b border-border">
-          <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-14 px-5 py-16 sm:px-8 lg:grid-cols-[1.08fr_.92fr] lg:py-20">
+          <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-12 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1.08fr_.92fr] lg:gap-14 lg:py-20">
             <div className="max-w-3xl">
               <div className="mb-8 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-primary"><span className="h-px w-10 bg-primary" /> Video to text, without the wait</div>
-              <h1 className="font-display text-6xl leading-[.9] sm:text-7xl lg:text-[6.5rem]">Video<br /><span className="text-primary">Speed</span> Reader</h1>
-              <p className="mt-9 max-w-2xl text-2xl font-semibold leading-snug sm:text-3xl">上傳影片，三分鐘內拿到逐字稿。</p>
+              <h1 className="font-display text-5xl leading-[.92] sm:text-7xl lg:text-[6.5rem]">Video<br /><span className="text-primary">Speed</span> Reader</h1>
+              <p className="mt-7 max-w-2xl text-2xl font-semibold leading-snug sm:mt-9 sm:text-3xl">上傳影片，三分鐘內拿到逐字稿。</p>
               <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">Upload your video, get a clean transcript in three minutes.</p>
-              <div className="mt-10 flex flex-wrap items-center gap-5">
-                <Button asChild size="lg" className="h-13 px-7 text-base shadow-none"><Link to="/auth">Start transcribing <ArrowRight /></Link></Button>
+              <div className="mt-9 flex flex-col items-start gap-4 sm:mt-10 sm:flex-row sm:items-center sm:gap-5">
+                <Button asChild size="lg" className="h-13 w-full px-7 text-base shadow-none sm:w-auto"><Link to="/auth">Continue with email <ArrowRight /></Link></Button>
                 <div className="flex items-center gap-2 text-sm font-semibold"><Check className="size-4 text-primary" /> Chinese & English</div>
               </div>
             </div>
 
             <div className="relative mx-auto w-full max-w-xl lg:mx-0">
               <div className="absolute -left-5 -top-5 hidden border border-foreground bg-accent px-4 py-2 text-xs font-bold uppercase tracking-[.14em] sm:block">3 min turnaround</div>
-              <div className="border border-foreground bg-card shadow-[12px_12px_0_var(--foreground)]">
+              <div className="border border-foreground bg-card shadow-[7px_7px_0_var(--foreground)] sm:shadow-[12px_12px_0_var(--foreground)]">
                 <div className="flex items-center justify-between border-b border-foreground px-5 py-4">
                   <div className="flex items-center gap-3"><span className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground"><AudioLines className="size-4" /></span><div><p className="text-sm font-bold">creator-interview.mp4</p><p className="text-xs text-muted-foreground">48:22 · Mandarin</p></div></div>
                   <span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold">Ready</span>
@@ -67,10 +67,10 @@ function Index() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
+        <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-28">
           <div className="mb-12 grid gap-4 lg:grid-cols-2"><h2 className="font-display text-4xl sm:text-5xl">From recording to<br />ready-to-use words.</h2><p className="max-w-lg self-end text-muted-foreground lg:justify-self-end">Built for creators, educators, and engineers who would rather use their ideas than retype them.</p></div>
           <div className="grid border-l border-t border-border md:grid-cols-3">
-            {features.map(({ icon: Icon, number, title, english, body, detail }) => <article key={number} className="group min-h-80 border-b border-r border-border bg-card p-7 transition-colors hover:bg-secondary/50"><div className="flex items-start justify-between"><Icon className="size-7 text-primary" /><span className="font-mono text-xs text-muted-foreground">{number}</span></div><h3 className="mt-16 text-xl font-bold">{title}</h3><p className="mt-1 text-sm font-semibold text-primary">{english}</p><p className="mt-5 text-sm leading-6 text-muted-foreground">{body}</p><p className="mt-7 border-t border-border pt-4 text-xs font-bold uppercase tracking-[.12em]">{detail}</p></article>)}
+            {features.map(({ icon: Icon, number, title, english, body, detail }) => <article key={number} className="group min-h-72 border-b border-r border-border bg-card p-6 transition-colors hover:bg-secondary/50 sm:min-h-80 sm:p-7"><div className="flex items-start justify-between"><Icon className="size-7 text-primary" /><span className="font-mono text-xs text-muted-foreground">{number}</span></div><h3 className="mt-10 text-xl font-bold sm:mt-16">{title}</h3><p className="mt-1 text-sm font-semibold text-primary">{english}</p><p className="mt-5 text-sm leading-6 text-muted-foreground">{body}</p><p className="mt-7 border-t border-border pt-4 text-xs font-bold uppercase tracking-[.12em]">{detail}</p></article>)}
           </div>
         </section>
       </main>
