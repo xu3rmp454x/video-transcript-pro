@@ -5,4 +5,4 @@
 - [x] Add a protected video upload workspace.
 - [x] Remove Google sign-in, transcript history, account profile details, and extra settings from v1.
 - [x] Refine landing copy, primary CTA clarity, and mobile layout for the email sign-in flow.
-- [ ] Audit and fix the mobile landing → email auth → upload interaction flow.
+- [x] Audit and fix the mobile landing → email auth → upload interaction flow.
