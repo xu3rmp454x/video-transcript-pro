@@ -4,7 +4,6 @@ import { ArrowLeft, AudioLines, Eye, EyeOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({ meta: [
@@ -48,13 +47,6 @@ function AuthPage() {
     setLoading(false);
   }
 
-  async function signInWithGoogle() {
-    setLoading(true); setError("");
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/auth" });
-    if (result.error) { setError(result.error.message); setLoading(false); return; }
-    if (!result.redirected) await navigate({ to: "/dashboard", replace: true });
-  }
-
   return <main className="grid min-h-screen bg-background lg:grid-cols-[.8fr_1.2fr]">
     <section className="flex flex-col border-r border-border px-5 py-6 sm:px-10 lg:px-14">
       <Link to="/" className="flex w-fit items-center gap-2 text-sm font-semibold"><ArrowLeft className="size-4" /> Back home</Link>
@@ -62,9 +54,7 @@ function AuthPage() {
         <div className="mb-8 flex items-center gap-3"><span className="grid size-10 place-items-center rounded-md bg-foreground text-background"><AudioLines /></span><span className="font-bold">Video Speed Reader</span></div>
         <h1 className="font-display text-4xl">{mode === "signin" ? "Welcome back." : "Create your account."}</h1>
         <p className="mt-2 text-sm text-muted-foreground">{mode === "signin" ? "Your transcripts are waiting." : "Start turning recordings into useful text."}</p>
-        <Button type="button" variant="outline" className="mt-8 h-11 w-full shadow-none" onClick={signInWithGoogle} disabled={loading}>Continue with Google</Button>
-        <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />OR CONTINUE WITH EMAIL<span className="h-px flex-1 bg-border" /></div>
-        <form className="space-y-4" onSubmit={submit}>
+        <form className="mt-8 space-y-4" onSubmit={submit}>
           <div><label className="mb-2 block text-sm font-semibold" htmlFor="email">Email</label><Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="h-11 bg-card" placeholder="you@example.com" /></div>
           <div><div className="mb-2 flex justify-between"><label className="text-sm font-semibold" htmlFor="password">Password</label>{mode === "signin" && <Link to="/forgot-password" className="text-xs font-semibold text-primary">Forgot password?</Link>}</div><div className="relative"><Input id="password" type={showPassword ? "text" : "password"} minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} className="h-11 bg-card pr-11" placeholder="At least 8 characters" /><Button type="button" size="icon" variant="ghost" className="absolute right-1 top-1" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff /> : <Eye />}</Button></div></div>
           {error && <p className="border-l-2 border-destructive pl-3 text-sm text-destructive">{error}</p>}

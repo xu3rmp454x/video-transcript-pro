@@ -1,26 +1,19 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { AudioLines, CheckCircle2, Clock3, FileText, LogOut, MoreHorizontal, UploadCloud } from "lucide-react";
+import { AudioLines, LogOut, UploadCloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({ head: () => ({ meta: [{ title: "Workspace — Video Speed Reader" }, { name: "description", content: "Upload videos and manage your transcripts." }, { property: "og:title", content: "Video Speed Reader workspace" }, { property: "og:description", content: "Your private video transcription workspace." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Dashboard });
 
-const samples = [
-  { name: "Design review — Sept 18.mp4", detail: "42:18 · English", status: "Ready", time: "2 days ago" },
-  { name: "課程第三章：研究方法.mov", detail: "1:04:52 · 中文", status: "Ready", time: "Sep 19" },
-  { name: "Engineering sync.mp4", detail: "28:06 · English", status: "Processing", time: "Just now" },
-];
-
 function Dashboard() {
-  const { user } = Route.useRouteContext(); const navigate = useNavigate(); const inputRef = useRef<HTMLInputElement>(null); const [selected, setSelected] = useState<string | null>(null);
+  const navigate = useNavigate(); const inputRef = useRef<HTMLInputElement>(null); const [selected, setSelected] = useState<string | null>(null);
   async function signOut() { await supabase.auth.signOut(); await navigate({ to: "/auth", replace: true }); }
   return <div className="min-h-screen bg-background">
-    <header className="border-b border-border bg-card"><div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 sm:px-8"><div className="flex items-center gap-3 font-bold"><span className="grid size-9 place-items-center rounded-md bg-foreground text-background"><AudioLines className="size-5" /></span><span className="hidden sm:inline">Video Speed Reader</span></div><div className="flex items-center gap-3"><span className="hidden max-w-64 truncate text-sm text-muted-foreground sm:block">{user.email}</span><Button variant="outline" size="icon" onClick={signOut} aria-label="Sign out"><LogOut /></Button></div></div></header>
+    <header className="border-b border-border bg-card"><div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 sm:px-8"><div className="flex items-center gap-3 font-bold"><span className="grid size-9 place-items-center rounded-md bg-foreground text-background"><AudioLines className="size-5" /></span><span className="hidden sm:inline">Video Speed Reader</span></div><Button variant="outline" size="icon" onClick={signOut} aria-label="Sign out"><LogOut /></Button></div></header>
     <main className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:py-14">
-      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="text-xs font-bold uppercase tracking-[.18em] text-primary">Transcript workspace</p><h1 className="mt-2 font-display text-4xl sm:text-5xl">Turn recordings into words.</h1></div><div className="flex items-center gap-2 text-xs text-muted-foreground"><span className="size-2 rounded-full bg-primary" /> 2 of 5 monthly uploads used</div></div>
+      <div><p className="text-xs font-bold uppercase tracking-[.18em] text-primary">Video upload</p><h1 className="mt-2 font-display text-4xl sm:text-5xl">Turn recordings into words.</h1></div>
       <section className="mt-10 border border-foreground bg-card p-3 shadow-[8px_8px_0_var(--foreground)]"><button type="button" onClick={() => inputRef.current?.click()} className="flex min-h-64 w-full flex-col items-center justify-center border border-dashed border-border bg-background px-6 text-center transition-colors hover:bg-secondary/40"><span className="grid size-14 place-items-center rounded-full bg-primary text-primary-foreground"><UploadCloud /></span><h2 className="mt-5 text-lg font-bold">Drop a video here, or click to upload</h2><p className="mt-2 text-sm text-muted-foreground">MP4, MOV, WebM, or M4V · up to 2 GB</p><span className="mt-5 rounded-md bg-foreground px-5 py-2.5 text-sm font-semibold text-background">Choose video</span></button><input ref={inputRef} type="file" accept="video/mp4,video/quicktime,video/webm,video/x-m4v" className="hidden" onChange={(event) => setSelected(event.target.files?.[0]?.name ?? null)} />{selected && <div className="flex items-center justify-between px-3 pb-1 pt-4 text-sm"><span><strong>Selected:</strong> {selected}</span><span className="text-muted-foreground">Upload processing is coming next.</span></div>}</section>
-      <section className="mt-14"><div className="flex items-center justify-between"><div><h2 className="text-xl font-bold">Recent transcripts</h2><p className="mt-1 text-sm text-muted-foreground">Sample activity</p></div><Button variant="ghost" size="icon" aria-label="More transcript options"><MoreHorizontal /></Button></div><div className="mt-5 divide-y divide-border border-y border-border">{samples.map((item) => <article key={item.name} className="grid items-center gap-4 py-5 sm:grid-cols-[1fr_auto_auto]"><div className="flex min-w-0 items-center gap-4"><span className="grid size-11 shrink-0 place-items-center rounded-md bg-secondary"><FileText className="size-5" /></span><div className="min-w-0"><p className="truncate font-semibold">{item.name}</p><p className="mt-1 text-xs text-muted-foreground">{item.detail}</p></div></div><span className="flex items-center gap-2 text-sm font-medium">{item.status === "Ready" ? <CheckCircle2 className="size-4 text-primary" /> : <Clock3 className="size-4 animate-pulse text-primary" />}{item.status}</span><span className="text-sm text-muted-foreground sm:w-20 sm:text-right">{item.time}</span></article>)}</div></section>
     </main>
   </div>;
 }
